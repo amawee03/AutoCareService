@@ -49,17 +49,18 @@ const services = [
   },
 ];
 
-const ServicesSection = () => {
+const ServicesSection = ({ showHeader = true }) => {
   return (
     <section className="py-20 bg-secondary-light">
       <div className="max-w-8xl mx-auto px-8 sm:px-12 lg:px-16 xl:px-20">
-        {/* Heading kept for Home preview; Services page has its own hero */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-foreground mb-3">Choose Your Service Package</h2>
-          <p className="text-xl text-muted-foreground">Professional automotive services with expert care for your vehicle</p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-14">
+            <h2 className="text-5xl font-bold text-foreground mb-4">Choose Your Service Package</h2>
+            <p className="text-xl text-muted-foreground">Professional automotive services with expert care for your vehicle</p>
+          </div>
+        )}
 
-        <div className="grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
+        <div className="grid lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-10">
           {services.map((service, idx) => {
             const Icon = service.icon;
             return (
@@ -76,15 +77,13 @@ const ServicesSection = () => {
                   </div>
                 </div>
 
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
-                    </div>
+                <CardContent className="p-7 space-y-5">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
                   </div>
 
-                  <div className="flex items-center justify-between bg-primary-muted/40 border border-primary/30 rounded-lg px-4 py-2">
+                  <div className="flex items-center justify-between bg-primary-muted/40 border border-primary/30 rounded-lg px-4 py-2.5">
                     <div className="flex items-center gap-2 text-foreground">
                       <Clock className="h-4 w-4 text-primary" />
                       <span className="text-sm font-medium">{service.duration}</span>
@@ -101,7 +100,7 @@ const ServicesSection = () => {
                     ))}
                   </ul>
 
-                  <div className="pt-2 flex items-center gap-3">
+                  <div className="pt-1 flex items-center gap-3">
                     <Link to="/services" className="inline-flex items-center bg-primary text-primary-foreground hover:bg-primary-dark px-4 py-2 rounded-md text-sm font-semibold">
                       Book Now
                     </Link>
