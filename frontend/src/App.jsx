@@ -1,19 +1,21 @@
 import React from 'react';
-import ServiceCatalogue from './components/ServiceCatalogue';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import ServicesPage from './pages/ServicesPage';
+import AboutPage from './pages/AboutPage';
+import AccountPage from './pages/AccountPage';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="app-header">
-        <h1>AutoCare Service Management</h1>
-        <p>Professional automotive services at your fingertips</p>
-      </header>
-      <main className="app-main">
-        <ServiceCatalogue />
-      </main>
+    <div className="min-h-screen">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/account" element={<AccountPage />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;

@@ -1,30 +1,142 @@
-/* Global styles for the AutoCare Service Management app */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AutoCare Design System - Automotive themed with red, black, white palette */
+
+@layer base {
 :root {
-  --primary-red: #dc2626;
-  --dark-red: #b91c1c;
-  --darker-red: #991b1b;
-  --black: #000000;
-  --dark-gray: #1a1a1a;
-  --medium-gray: #2a2a2a;
-  --light-gray: #333333;
-  --white: #ffffff;
-  --light-text: #cccccc;
+    /* Core Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
+
+    /* AutoCare Red Theme */
+    --primary: 0 84% 50%; /* Vibrant automotive red */
+    --primary-foreground: 0 0% 100%;
+    --primary-muted: 0 84% 95%; /* Light red tint */
+    --primary-dark: 0 84% 40%; /* Darker red for hover states */
+
+    /* Neutral Grays and Blacks */
+    --secondary: 0 0% 15%; /* Deep charcoal */
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 0 0% 96%; /* Light gray backgrounds */
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 15%;
+
+    /* Status Colors */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Card and Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+    --card-hover: 0 0% 98%;
+
+    /* Border and Input */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 84% 50%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    /* Design System Spacing */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+
+    /* Sidebar Theme */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 15%;
+    --sidebar-primary: 0 84% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 15%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 0 84% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 84% 50%), hsl(0 84% 40%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 15%), hsl(0 0% 8%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+    --shadow-red: 0 10px 30px -10px hsl(0 84% 50% / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
+
+    --primary: 0 84% 55%;
+    --primary-foreground: 0 0% 8%;
+    --primary-muted: 0 84% 15%;
+    --primary-dark: 0 84% 45%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --secondary-light: 0 0% 12%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --card-hover: 0 0% 12%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 84% 55%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 20%;
+
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 10%), hsl(0 0% 8%));
+  }
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  * {
+    @apply border-border;
 }
 
 body {
+    @apply bg-background text-foreground;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--black);
-  color: var(--white);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+  html {
+    scroll-behavior: smooth;
+  }
 
 #root {
   min-height: 100vh;
@@ -36,27 +148,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--dark-gray);
+    @apply bg-secondary-light;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-red);
-  border-radius: 4px;
+    @apply bg-primary rounded-sm;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--dark-red);
+    @apply bg-primary-dark;
 }
 
 /* Selection styling */
 ::selection {
-  background: var(--primary-red);
-  color: var(--white);
+    @apply bg-primary text-primary-foreground;
 }
 
 ::-moz-selection {
-  background: var(--primary-red);
-  color: var(--white);
+    @apply bg-primary text-primary-foreground;
 }
 
 /* Focus styles for accessibility */
@@ -64,8 +173,7 @@ button:focus,
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid var(--primary-red);
-  outline-offset: 2px;
+    @apply outline-2 outline-primary outline-offset-2;
 }
 
 /* Smooth transitions for interactive elements */
@@ -74,7 +182,7 @@ a,
 input,
 select,
 textarea {
-  transition: all 0.2s ease;
+    transition: var(--transition-fast);
 }
 
 /* Typography improvements */
@@ -86,55 +194,4 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-bottom: 1rem;
 }
-
-/* Utility classes */
-.text-center {
-  text-align: center;
-}
-
-.text-red {
-  color: var(--primary-red);
-}
-
-.bg-red {
-  background-color: var(--primary-red);
-}
-
-.bg-black {
-  background-color: var(--black);
-}
-
-.bg-white {
-  background-color: var(--white);
-}
-
-/* Animation keyframes */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.slide-in {
-  animation: slideIn 0.4s ease-out;
 }
