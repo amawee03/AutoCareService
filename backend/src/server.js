@@ -1,5 +1,7 @@
 import express from "express";
 import catalogueRoutes from "./routes/catalogueRoutes.js";
+import financeIncomeRoutes from "./routes/financeIncomeRoutes.js";
+
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import ratelimiter from "./middleware/rateLimiter.js";
@@ -22,6 +24,9 @@ app.use("/api/packages", ratelimiter, catalogueRoutes);
 // });
 
 app.use("/api/packages", catalogueRoutes);
+
+app.use("/api/finance-income", financeIncomeRoutes);
+
 
 connectDB().then(()=>{
     app.listen(PORT,() =>{
