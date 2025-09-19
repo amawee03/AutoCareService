@@ -1,146 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function AddServicePackageForm() {
-  const [features, setFeatures] = useState([]);
-  const [featureInput, setFeatureInput] = useState("");
+export default function ServicesPage() {
+  const [packagesList, setPackagesList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const addFeature = () => {
-    if (featureInput.trim()) {
-      setFeatures([...features, featureInput.trim()]);
-      setFeatureInput("");
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Collect data and send to backend here
-    console.log("Form submitted");
-  };
+  useEffect(() => {
+    const fetchPackages = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const res = await fetch("/api/packages");
+        if (!res.ok) throw new Error("Failed to load packages");
+        const data = await res.json();
+        setPackagesList(Array.isArray(data) ? data : []);
+      } catch (e) {
+        setError(e.message || "Failed to load packages");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPackages();
+  }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-xl w-full max-w-2xl shadow-lg">
-        <div className="p-6 border-b flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Add Nw Service Package</h2>
-          <button className="text-gray-500 hover:text-gray-700">&times;</button>
+    <div className="bg-background min-h-screen">
+      <section className="relative py-24 border-b border-border">
+        <div className="max-w-8xl mx-auto px-8 sm:px-12 lg:px-16 xl:px-24">
+          <h1 className="text-6xl lg:text-7xl font-bold text-foreground tracking-tight">Services</h1>
+          <p className="mt-6 text-2xl lg:text-3xl text-muted-foreground max-w-4xl leading-relaxed">
+            Explore our professional automotive services tailored to your needs.
+          </p>
         </div>
+      </section>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          {/* Service Name & Category */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Service Name</label>
-              <input
-                type="text"
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-                required
-              />
+      <section className="py-16">
+        <div className="max-w-8xl mx-auto px-8 sm:px-12 lg:px-16 xl:px-24">
+          {loading ? (
+            <div className="text-muted-foreground">Loading packages...</div>
+          ) : error ? (
+            <div className="text-destructive">{error}</div>
+          ) : packagesList.length === 0 ? (
+            <div className="text-center space-y-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground">No service packages yet</h2>
+              <p className="text-lg lg:text-xl text-muted-foreground">
+                Once packages are added, they will appear here. You can add packages from the admin dashboard.
+              </p>
+              <div className="pt-4">
+                <Link to="/admin" className="inline-block bg-primary text-primary-foreground hover:bg-primary-dark px-8 py-4 rounded-md text-lg font-semibold">
+                  Go to Admin Dashboard
+                </Link>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Category</label>
-              <select
-                className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-                defaultValue=""
-                required
-              >
-                <option value="" disabled>
-                  Select category
-                </option>
-                <option>Detailing</option>
-                <option>Maintenance</option>
-                <option>Repair</option>
-                <option>Bodywork</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Price & Duration */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Price (Rs.)</label>
-              <input
-                type="number"
-                className="w-full border rounded-lg px-3 py-2"
-                min="0"
-                defaultValue="0"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Duration (minutes)</label>
-              <input
-                type="number"
-                className="w-full border rounded-lg px-3 py-2"
-                min="0"
-                defaultValue="0"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Description</label>
-            <textarea
-              className="w-full border rounded-lg px-3 py-2"
-              rows="3"
-              required
-            ></textarea>
-          </div>
-
-          {/* Service Image */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Service Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              className="w-full border rounded-lg px-3 py-2"
-            />
-          </div>
-
-          {/* Features */}
-          <div>
-            <label className="block text-sm font-medium mb-1">Features</label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Add a feature"
-                value={featureInput}
-                onChange={(e) => setFeatureInput(e.target.value)}
-                className="flex-1 border rounded-lg px-3 py-2"
-              />
-              <button
-                type="button"
-                onClick={addFeature}
-                className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-              >
-                +
-              </button>
-            </div>
-            <ul className="mt-2 list-disc pl-5 space-y-1 text-sm text-gray-700">
-              {features.map((f, idx) => (
-                <li key={idx}>{f}</li>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {packagesList.map((p) => (
+                <div key={p._id} className="overflow-hidden border border-border rounded-xl bg-card hover:shadow-lg transition-shadow">
+                  {p.image ? (
+                    <img src={p.image} alt={p.pkgName} className="w-full h-44 object-cover" />
+                  ) : null}
+                  <div className="p-6 space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-xl font-semibold text-foreground">{p.pkgName}</h3>
+                      <div className="text-2xl font-extrabold text-secondary">₹{p.price}</div>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{p.description}</p>
+                    <div className="flex items-center justify-between bg-primary-muted/40 border border-primary/30 rounded-lg px-3 py-2">
+                      <span className="text-sm font-medium text-foreground">{p.duration}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">{p.category}</span>
+                    </div>
+                    {Array.isArray(p.features) && p.features.length > 0 && (
+                      <ul className="text-sm space-y-1">
+                        {p.features.slice(0,3).map((f, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary"></span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
               ))}
-            </ul>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex justify-end gap-3 pt-4">
-            <button
-              type="button"
-              className="px-5 py-2 rounded-lg border border-gray-300 hover:bg-gray-100"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-5 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
-            >
-              Create Package
-            </button>
-          </div>
-        </form>
-      </div>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
