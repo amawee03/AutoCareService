@@ -1,5 +1,6 @@
 import React from 'react';
 import heroImage from '@/assets/hero-image.jpg'
+import Footer from '../components/layouts/FooterSection'
 
 export default function AboutPage() {
   return (
@@ -68,6 +69,7 @@ export default function AboutPage() {
 
       {/* Bottom spacer */}
       <div className="h-10 sm:h-16 lg:h-24" />
+      <Footer />
     </div>
   );
 }
