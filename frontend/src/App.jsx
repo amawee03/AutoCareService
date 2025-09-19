@@ -14,6 +14,7 @@ import AppointmentSuccess from './components/AppointmentSuccess';
 import AppointmentFailure from './components/AppointmentFailure';
 import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
+import InventoryDashboard from './pages/inventory/InventoryDashboard';
 
 
 
@@ -36,6 +37,7 @@ export default function App() {
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
+        <Route path="/inventory" element={<InventoryDashboard />} />
       </Routes>
     </div>
   );

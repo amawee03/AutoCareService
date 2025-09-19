@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import ratelimiter from "./middleware/rateLimiter.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import inventoryRoutes from "./routes/InventoryRoutes.js";
 
 dotenv.config();
 
@@ -22,10 +23,14 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.options("*", cors());
 
+app.use("/inventory", inventoryRoutes);
+import userRoutes from "./routes/UserRoutes.js";
+
 //app.use(ratelimiter)
 app.use("/api/packages", ratelimiter, catalogueRoutes);
 app.use("/api/appointments", ratelimiter, appointmentRoutes);
 app.use("/api/admin", ratelimiter, adminRoutes);
+app.use("/api/users", userRoutes);
 
 // Serve uploaded images
 const __filename = fileURLToPath(import.meta.url);

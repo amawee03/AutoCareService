@@ -1,6 +1,6 @@
 import React from 'react';
-import DashboardLayout from '../../components/layout/DashboardLayout';
-import StatsCard from '../../components/dashboard/StatsCard';
+import DashboardLayout from '@/components/layouts/DashboardLayout';
+import StatsCard from '@/components/dashboards/StatsCard';
 import {
   PackageIcon,
   AlertTriangleIcon,
