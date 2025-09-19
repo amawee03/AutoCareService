@@ -33,14 +33,14 @@ export async function getAllPackages (req,res){
 
  export async function createPackage (req,res){
      try{
-         const {
+        const {
              pkgName,
              description,
              category,
              price,
              duration,
-             features,
-             tags,
+            features,
+            tags,
              image,
              status
          } = req.body || {};
@@ -49,17 +49,23 @@ export async function getAllPackages (req,res){
              return res.status(400).json({ message: "pkgName, description, category, price and duration are required" });
          }
 
-         const created = await ServicePackage.create({
-             pkgName,
-             description,
-             category,
-             price,
-             duration,
-             features,
-             tags,
-             image,
-             status
-         });
+        // normalize payload (multer text fields arrive as strings)
+        const normalizedPrice = Number(price);
+        const normalizedFeatures = Array.isArray(features) ? features : (features ? [features] : []);
+        const normalizedTags = Array.isArray(tags) ? tags : (tags ? [tags] : []);
+        const normalizedImage = req.file ? `/uploads/${req.file.filename}` : (image || "");
+
+        const created = await ServicePackage.create({
+            pkgName,
+            description,
+            category,
+            price: normalizedPrice,
+            duration,
+            features: normalizedFeatures,
+            tags: normalizedTags,
+            image: normalizedImage,
+            status
+        });
          return res.status(201).json(created);
      }catch(error){
          console.error("Error in createPackage controller", error);
@@ -75,6 +81,19 @@ export async function getAllPackages (req,res){
         }
 
         const update = req.body || {};
+        // normalize update fields
+        if (update.price !== undefined) {
+            update.price = Number(update.price);
+        }
+        if (update.features !== undefined) {
+            update.features = Array.isArray(update.features) ? update.features : (update.features ? [update.features] : []);
+        }
+        if (update.tags !== undefined) {
+            update.tags = Array.isArray(update.tags) ? update.tags : (update.tags ? [update.tags] : []);
+        }
+        if (req.file) {
+            update.image = `/uploads/${req.file.filename}`;
+        }
         const updated = await ServicePackage.findByIdAndUpdate(id, update, { new: true, runValidators: true });
         if(!updated){
             return res.status(404).json({ message: "Service package not found" });

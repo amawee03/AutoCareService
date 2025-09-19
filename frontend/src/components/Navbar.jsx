@@ -53,9 +53,9 @@ const Navbar = () => {
             <Button variant="ghost" size="icon" className="text-secondary-foreground hover:text-primary hover:bg-primary/10 h-12 w-12">
               <User className="h-6 w-6" />
             </Button>
-            <Link to="/services">
+            <Link to="/appointment">
               <Button className="bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-3 text-lg h-12">
-                Book Service
+                Book Appointment
               </Button>
             </Link>
           </div>
@@ -99,9 +99,9 @@ const Navbar = () => {
                       <User className="h-5 w-5" />
                     </Button>
                   </div>
-                  <Link to="/services">
+                  <Link to="/appointment">
                     <Button className="bg-primary hover:bg-primary-dark text-primary-foreground px-5 py-3 text-lg">
-                      Book Service
+                      Book Appointment
                     </Button>
                   </Link>
                 </div>

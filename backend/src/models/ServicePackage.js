@@ -18,8 +18,15 @@ const ServicePackageSchema = new mongoose.Schema({
     required: true,
   },
   duration: {
-    type: String, 
+    type: Number, // Duration in minutes
     required: true,
+  },
+  bookingTimeWindows: {
+    type: [{
+      start: { type: String, required: true }, // "09:00"
+      end: { type: String, required: true }    // "17:00"
+    }],
+    default: [{ start: "09:00", end: "17:00" }]
   },
   features: {
     type: [String], 
