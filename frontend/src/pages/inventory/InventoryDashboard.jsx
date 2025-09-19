@@ -6,7 +6,7 @@ import {
   AlertTriangleIcon,
   TruckIcon,
   ArchiveIcon,
-// } from 'lucide-react';
+} from 'lucide-react';
 
 export default function InventoryDashboard() {
   // Sample data
