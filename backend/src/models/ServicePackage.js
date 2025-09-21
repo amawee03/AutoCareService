@@ -21,15 +21,8 @@ const ServicePackageSchema = new mongoose.Schema({
     type: Number, // Duration in minutes
     required: true,
   },
-  bookingTimeWindows: {
-    type: [{
-      start: { type: String, required: true }, // "09:00"
-      end: { type: String, required: true }    // "17:00"
-    }],
-    default: [{ start: "09:00", end: "17:00" }]
-  },
   features: {
-    type: [String], 
+    type: [String],
     default: []
   },
   tags: {
@@ -37,7 +30,7 @@ const ServicePackageSchema = new mongoose.Schema({
     default: []
   },
   image: {
-    type: String, 
+    type: String,
     default: ''
   },
   status: {
@@ -47,6 +40,6 @@ const ServicePackageSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-const ServicePackage = mongoose.model("ServicePackage",ServicePackageSchema);
+const ServicePackage = mongoose.model("ServicePackage", ServicePackageSchema);
 
 export default ServicePackage;
