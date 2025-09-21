@@ -15,10 +15,7 @@ import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
 
 
-import DashboardLayout from './components/layouts/DashboardLayout';
-import FinancialDashboard from './pages/financial/FinancialDashboard';
-import InvoicePage from './pages/financial/InvoicePage';
-// import ReportsPage from './pages/financial/ReportsPage';
+
 
 export default function App() {
   return (
@@ -42,6 +39,8 @@ export default function App() {
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
+      
+
       </Routes>
     </div>
   );
