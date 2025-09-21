@@ -19,7 +19,6 @@ import FinancialDashboard from './pages/financial/FinancialDashboard';
 import InvoicePage from './pages/financial/InvoicePage';
 // import ReportsPage from './pages/financial/ReportsPage';
 
-
 export default function App() {
   return (
     <div className="min-h-screen">
@@ -42,7 +41,6 @@ export default function App() {
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
-<<<<<<< HEAD
 
         {/* Financial Manager Pages (wrapped with DashboardLayout only once) */}
         <Route
@@ -69,10 +67,6 @@ export default function App() {
             </DashboardLayout>
           }
         /> */}
-=======
-      
-
->>>>>>> origin/main
       </Routes>
     </div>
   );
