@@ -129,10 +129,10 @@ const AdminDashboard = () => {
             <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
             <div className="space-y-3">
               <a
-                href="/admin/services/new"
+                href="/admin/manageservices"
                 className="block w-full py-2 bg-red-600 text-white text-center rounded hover:bg-red-700 transition duration-200"
               >
-                Add New Service
+               Manage Services
               </a>
               <a
                 href="/admin/users/new"

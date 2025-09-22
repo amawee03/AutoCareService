@@ -12,7 +12,8 @@ export const addFinanceIncome = async (req, res) => {
       mode,
       name,
       description,
-      image: req.file ? `/uploads/${req.file.filename}` : null, // save path if file uploaded
+      // ✅ Use backticks for template literals
+      image: req.file ? `/uploads/${req.file.filename}` : null, 
     });
 
     const savedIncome = await newIncome.save();
@@ -48,6 +49,7 @@ export const updateFinanceIncome = async (req, res) => {
   try {
     const updates = { ...req.body };
     if (req.file) {
+      // ✅ Use backticks here as well
       updates.image = `/uploads/${req.file.filename}`;
     }
 

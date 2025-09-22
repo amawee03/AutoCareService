@@ -15,11 +15,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// Middleware
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.options("*", cors());
 
-// route-level rate limiter applied where needed
+// Routes with rate limiter applied where needed
 app.use("/api/packages", ratelimiter, catalogueRoutes);
 app.use("/api/appointments", ratelimiter, appointmentRoutes);
 app.use("/api/admin", ratelimiter, adminRoutes);
@@ -30,13 +31,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
-connectDB().then(()=>{
-  app.listen(PORT,() =>{
-    console.log("Server started on PORT: ",PORT);
+// Connect to database and start server
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server started on PORT: ${PORT}`);
   });
 });
 
-// error handler (include after routes)
+// Global error handler (include after routes)
 app.use((err, req, res, next) => {
   if (!err) return next();
   if (err.name === 'MulterError') return res.status(400).json({ message: err.message });
