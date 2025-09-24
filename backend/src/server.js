@@ -19,10 +19,12 @@ const PORT = process.env.PORT || 5001;
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.options("*", cors());
+app.use("/uploads", express.static("uploads"));
 
 // Routes with rate limiter applied where needed
 app.use("/api/packages", ratelimiter, catalogueRoutes);
 app.use("/api/appointments", ratelimiter, appointmentRoutes);
+// app.use("/api/payments",paymentRoutes);
 app.use("/api/admin", ratelimiter, adminRoutes);
 app.use("/api/finance-income", financeIncomeRoutes);
 

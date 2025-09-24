@@ -15,6 +15,8 @@ import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
 import AdminNewService from './pages/Admin/AdminNewService';
 import AdminManageServices from './pages/Admin/AdminManageServices';
+import AdminAddServiceForm from './pages/Admin/AdminAddServiceForm';
+import AdminViewPackages from './pages/Admin/AdminViewPackage';
 
 export default function App() {
   return (
@@ -33,14 +35,14 @@ export default function App() {
         <Route path = "/admin/manageservices" element = {<AdminManageServices/>}/>
         {/* <Route path="/admin/services/new" element={<ServiceForm />} /> */}
           <Route path="/admin/services/new" element={<AdminNewService />} />
-
+<Route path="/admin/viewservices" element={<AdminViewPackages/>} />
         {/* Appointment Booking */}
         <Route path="/appointment" element={<ServiceSelection />} />
         <Route path="/appointment/details" element={<AppointmentForm />} />
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
-
+    <Route path = "/admin/form" element = {<AdminAddServiceForm/>}/>
        
       </Routes>
     </div>
