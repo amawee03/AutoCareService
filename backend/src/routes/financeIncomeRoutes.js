@@ -1,6 +1,6 @@
+// backend/src/routes/financeIncomeRoutes.js
 import express from "express";
-import multer from "multer";
-import { upload } from "../server.js";
+import { upload } from "../middleware/multer.js";  // ✅ shared multer
 
 import {
   addFinanceIncome,
@@ -12,24 +12,12 @@ import {
 
 const router = express.Router();
 
-// ✅ Multer setup (store in /uploads)
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // folder where images will be stored
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname); // unique filename
-  },
-});
-
-const upload = multer({ storage });
-
 // Test route
 router.get("/test", (req, res) => {
   res.json({ message: "Finance Income route is working!" });
 });
 
-// ✅ Routes
+// Routes
 router.post("/", upload.single("image"), addFinanceIncome);
 router.get("/", getAllFinanceIncomes);
 router.get("/:id", getFinanceIncomeById);

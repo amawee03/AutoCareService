@@ -17,7 +17,9 @@ import ContactUsPage from './pages/ContactUsPage';
 import DashboardLayout from './components/layouts/DashboardLayout';
 import FinancialDashboard from './pages/financial/FinancialDashboard';
 import InvoicePage from './pages/financial/InvoicePage';
-// import ReportsPage from './pages/financial/ReportsPage';
+import ReportsPage from "./pages/financial/ReportsPage";
+import ArchivesPage from "./pages/financial/ArchivesPage";
+
 
 
 export default function App() {
@@ -42,7 +44,6 @@ export default function App() {
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
-<<<<<<< HEAD
 
         {/* Financial Manager Pages (wrapped with DashboardLayout only once) */}
         <Route
@@ -61,18 +62,22 @@ export default function App() {
             </DashboardLayout>
           }
         />
-        {/* <Route
-          path="/financial/reports"
-          element={
-            <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
-              <ReportsPage />
-            </DashboardLayout>
-          }
-        /> */}
-=======
-      
-
->>>>>>> origin/main
+        <Route
+              path="/financial/reports"
+              element={
+                <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
+                  <ReportsPage />
+                </DashboardLayout>
+              }
+        />
+        <Route
+            path="/financial/archives"
+            element={
+              <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
+                <ArchivesPage />
+              </DashboardLayout>
+            }
+        />
       </Routes>
     </div>
   );

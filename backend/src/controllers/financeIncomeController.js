@@ -1,4 +1,5 @@
 import FinanceIncome from "../models/FinanceIncomeModel.js";
+import FinanceIncomeArchive from "../models/FinanceIncomeArchiveModel.js";
 
 // ✅ Create a new finance income
 export const addFinanceIncome = async (req, res) => {
@@ -65,12 +66,41 @@ export const updateFinanceIncome = async (req, res) => {
 };
 
 // ✅ Delete a finance income by ID
+// ✅ Delete a finance income by ID
 export const deleteFinanceIncome = async (req, res) => {
   try {
-    const deletedIncome = await FinanceIncome.findByIdAndDelete(req.params.id);
-    if (!deletedIncome) return res.status(404).json({ message: "Income not found" });
-    res.status(200).json({ message: "Income deleted successfully" });
+    const { deleteReason, deletePin } = req.body;
+
+    // 🔹 1. Check PIN first
+    if (!deletePin || deletePin.trim() === "") {
+      return res.status(400).json({ message: "Delete PIN is required" });
+    }
+    if (deletePin !== process.env.DELETE_PIN) {
+      return res.status(403).json({ message: "Invalid PIN" });
+    }
+
+    // 🔹 2. Then check reason
+    if (!deleteReason || deleteReason.trim() === "") {
+      return res.status(400).json({ message: "Delete reason is required" });
+    }
+
+    const income = await FinanceIncome.findById(req.params.id);
+    if (!income) return res.status(404).json({ message: "Income not found" });
+
+    // Move to archive with reason (✅ pin is not saved anymore)
+    const archived = new FinanceIncomeArchive({
+      ...income.toObject(),
+      deletedAt: new Date(),
+      deleteReason,
+    });
+    await archived.save();
+
+    await FinanceIncome.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ message: "Record archived successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+

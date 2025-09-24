@@ -89,6 +89,13 @@ const DashboardLayout = ({ children, userRole, userName }) => {
           icon: <ClipboardIcon size={20} />,
           label: 'Reports',
         },
+        {
+          to: '/financial/archives',   // ✅ New Archives item
+          icon: <ClipboardIcon size={20} />,
+          label: 'Archives',
+        },
+        
+        
       ],
       'inventory-manager': [
         {

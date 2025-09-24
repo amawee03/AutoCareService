@@ -9,12 +9,13 @@ export default function InvoicePage() {
   const [dueDate, setDueDate] = useState(null);
   const [notes, setNotes] = useState("");
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (amount <= 0) {
@@ -27,17 +28,45 @@ export default function InvoicePage() {
       return;
     }
 
-    const invoiceData = {
-      customerName,
-      service,
-      amount,
-      dueDate,
-      notes,
-      image,
-    };
+    try {
+      setLoading(true);
 
-    console.log("Invoice submitted:", invoiceData);
-    alert("Invoice logged successfully!");
+      const formData = new FormData();
+      formData.append("name", customerName);
+      formData.append("category", service);
+      formData.append("amount", amount);
+      formData.append("dateReceived", dueDate);
+      formData.append("description", notes);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const response = await fetch("http://localhost:5001/api/finance-income", {
+        method: "POST",
+        body: formData, // no Content-Type header needed, browser sets it
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save invoice");
+      }
+
+      const result = await response.json();
+      console.log("Invoice saved:", result);
+      alert("Invoice logged successfully!");
+
+      // Reset form
+      setCustomerName("");
+      setService("");
+      setAmount("");
+      setDueDate(null);
+      setNotes("");
+      setImage(null);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to save invoice. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -70,14 +99,15 @@ export default function InvoicePage() {
             className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-red-500 focus:ring-red-500 text-gray-900"
             required
           >
-            
             <option value="" disabled>
               Select a service
             </option>
             <option value="service-payment">Service Payment</option>
             <option value="inventory-payment">Inventory Payment</option>
             <option value="service-parts-sales">Service Parts Sales</option>
-            <option value="washing-detailing-service">Washing / Detailing Service Payment</option>
+            <option value="washing-detailing-service">
+              Washing / Detailing Service Payment
+            </option>
             <option value="vehicle-diagnosis">Vehicle Diagnosis</option>
             <option value="other">Other</option>
           </select>
@@ -157,9 +187,10 @@ export default function InvoicePage() {
         <div>
           <button
             type="submit"
-            className="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+            disabled={loading}
+            className="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition disabled:opacity-50"
           >
-            Save Invoice
+            {loading ? "Saving..." : "Save Invoice"}
           </button>
         </div>
       </form>

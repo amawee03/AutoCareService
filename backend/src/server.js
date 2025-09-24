@@ -9,8 +9,11 @@ import dotenv from "dotenv";
 import ratelimiter from "./middleware/rateLimiter.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import archiveRoutes from "./routes/archiveRoutes.js";
+import upload from "./middleware/multer.js";
 
 dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -23,12 +26,23 @@ app.options("*", cors());
 app.use("/api/packages", ratelimiter, catalogueRoutes);
 app.use("/api/appointments", ratelimiter, appointmentRoutes);
 app.use("/api/admin", ratelimiter, adminRoutes);
-app.use("/api/finance-income", financeIncomeRoutes);
 
 // Serve uploaded images
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+
+// app.use((req,res, next) => {
+//     console.log(`New Package Request ${req.method} received & URI is ${req.url}`);
+//     next();
+// });
+
+// Mounted once above with rate limiter
+
+app.use("/api/finance-income", financeIncomeRoutes);
+app.use("/api/finance-archives", archiveRoutes);
+
+
 
 connectDB().then(()=>{
   app.listen(PORT,() =>{
@@ -36,9 +50,22 @@ connectDB().then(()=>{
   });
 });
 
-// error handler (include after routes)
-app.use((err, req, res, next) => {
-  if (!err) return next();
-  if (err.name === 'MulterError') return res.status(400).json({ message: err.message });
-  return res.status(500).json({ message: err.message || 'Server error' });
+
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(process.cwd(), 'uploads')); // folder must exist
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + '-' + file.originalname); // unique file name
+//   }
+// });
+
+// export const upload = multer({ storage });
+
+app.post("/api/upload", upload.single("image"), (req, res) => {
+  res.json({
+    message: "File uploaded successfully",
+    file: req.file
+  });
 });
