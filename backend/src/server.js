@@ -27,6 +27,7 @@ app.use("/api/appointments", ratelimiter, appointmentRoutes);
 // app.use("/api/payments",paymentRoutes);
 app.use("/api/admin", ratelimiter, adminRoutes);
 app.use("/api/finance-income", financeIncomeRoutes);
+// app.use('/post',postRoutes);
 
 // Serve uploaded images
 const __filename = fileURLToPath(import.meta.url);

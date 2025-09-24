@@ -19,6 +19,7 @@ import ContactUsPage from './pages/ContactUsPage';
 // import AdminAddServiceForm from './pages/Admin/AdminAddServiceForm';
 // import AdminViewPackages from './pages/Admin/AdminViewPackage';
 
+
 export default function App() {
   return (
     <div className="min-h-screen">
@@ -46,6 +47,8 @@ export default function App() {
     {/* <Route path = "/admin/form" element = {<AdminAddServiceForm/>}/> */}
        {/* Appointment Booking */}
         <Route path="/appointments" element={<AppointmentOverview />} />
+
+        <Route path="/appointment/failure" element={<AppointmentFailure />} />
 
       </Routes>
     </div>
