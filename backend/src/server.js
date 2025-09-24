@@ -3,8 +3,7 @@ import cors from "cors";
 import catalogueRoutes from "./routes/catalogueRoutes.js";
 import financeIncomeRoutes from "./routes/financeIncomeRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
-import paymentRoutes from "./routes/paymentRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+// import adminRoutes from "./routes/adminRoutes.js";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import ratelimiter from "./middleware/rateLimiter.js";
@@ -26,7 +25,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/packages", ratelimiter, catalogueRoutes);
 app.use("/api/appointments", ratelimiter, appointmentRoutes);
 // app.use("/api/payments",paymentRoutes);
-app.use("/api/admin", ratelimiter, adminRoutes);
+// app.use("/api/admin", ratelimiter, adminRoutes);
 app.use("/api/finance-income", financeIncomeRoutes);
 
 // Serve uploaded images
