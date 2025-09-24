@@ -2,16 +2,17 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
-import ServicesPage from './pages/packages/ServicesPage';
+// import ServicesPage from './pages/packages/ServicesPage';
 import AboutPage from './pages/AboutPage';
 import AccountPage from './pages/AccountPage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import ServiceSelection from './components/ServiceSelection';
-import AppointmentForm from './components/AppointmentForm';
-import PaymentPage from './pages/PaymentPage';
-import AppointmentSuccess from './components/AppointmentSuccess';
-import AppointmentFailure from './components/AppointmentFailure';
-import ServiceForm from './components/services/ServiceForm';
+import AppointmentOverview from './pages/appointments/appointmentsOverview'
+// import ServiceSelection from './components/ServiceSelection';
+// import AppointmentForm from './components/AppointmentForm';
+// import PaymentPage from './pages/PaymentPage';
+// import AppointmentSuccess from './components/AppointmentSuccess';
+// import AppointmentFailure from './components/AppointmentFailure';
+// import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
 
 import DashboardLayout from './components/layouts/DashboardLayout';
@@ -29,20 +30,27 @@ export default function App() {
       <Routes>
         {/* Public Pages */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/services" element={<ServicesPage />} />
+        {/* <Route path="/services" element={<ServicesPage />} /> */}
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/account" element={<AccountPage />} />
 
         {/* Admin Pages */}
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/services/new" element={<ServiceForm />} />
-
+        {/* <Route path = "/admin/manageservices" element = {<AdminManageServices/>}/> */}
+        {/* <Route path="/admin/services/new" element={<ServiceForm />} /> */}
+          {/* <Route path="/admin/services/new" element={<AdminNewService />} /> */}
+{/* <Route path="/admin/viewservices" element={<AdminViewPackages/>} /> */}
         {/* Appointment Booking */}
-        <Route path="/appointment" element={<ServiceSelection />} />
+        {/* <Route path="/appointment" element={<ServiceSelection />} />
         <Route path="/appointment/details" element={<AppointmentForm />} />
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
+        <Route path="/appointment/failure" element={<AppointmentFailure />} /> */}
+    {/* <Route path = "/admin/form" element = {<AdminAddServiceForm/>}/> */}
+       {/* Appointment Booking */}
+        <Route path="/appointments" element={<AppointmentOverview />} />
+
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
 
         {/* Financial Manager Pages (wrapped with DashboardLayout only once) */}
