@@ -14,10 +14,6 @@ import AppointmentFailure from './components/AppointmentFailure';
 import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
 
-import DashboardLayout from './components/layouts/DashboardLayout';
-import FinancialDashboard from './pages/financial/FinancialDashboard';
-import InvoicePage from './pages/financial/InvoicePage';
-// import ReportsPage from './pages/financial/ReportsPage';
 
 export default function App() {
   return (
@@ -33,8 +29,10 @@ export default function App() {
 
         {/* Admin Pages */}
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/services/new" element={<ServiceForm />} />
-
+        <Route path = "/admin/manageservices" element = {<AdminManageServices/>}/>
+        {/* <Route path="/admin/services/new" element={<ServiceForm />} /> */}
+          <Route path="/admin/services/new" element={<AdminNewService />} />
+<Route path="/admin/viewservices" element={<AdminViewPackages/>} />
         {/* Appointment Booking */}
         <Route path="/appointment" element={<ServiceSelection />} />
         <Route path="/appointment/details" element={<AppointmentForm />} />
@@ -42,31 +40,6 @@ export default function App() {
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
 
-        {/* Financial Manager Pages (wrapped with DashboardLayout only once) */}
-        <Route
-          path="/financialmanager"
-          element={
-            <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
-              <FinancialDashboard />
-            </DashboardLayout>
-          }
-        />
-        <Route
-          path="/financial/invoices"
-          element={
-            <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
-              <InvoicePage />
-            </DashboardLayout>
-          }
-        />
-        {/* <Route
-          path="/financial/reports"
-          element={
-            <DashboardLayout userRole="Financial Manager" userName="Finance Manager">
-              <ReportsPage />
-            </DashboardLayout>
-          }
-        /> */}
       </Routes>
     </div>
   );

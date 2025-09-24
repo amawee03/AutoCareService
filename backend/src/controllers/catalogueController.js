@@ -105,19 +105,22 @@ export async function getAllPackages (req,res){
     }
  }
 
- export async function deletePackage (req,res){
-     try{
-         const { id } = req.params;
-         if(!mongoose.isValidObjectId(id)){
-             return res.status(400).json({ message: "Invalid package id" });
-         }
-         const deleted = await ServicePackage.findByIdAndDelete(id);
-         if(!deleted){
-             return res.status(404).json({ message: "Service package not found" });
-         }
-         return res.status(200).json({ message: "Service package deleted successfully" });
-     }catch(error){
-         console.error("Error in deletePackage controller", error);
-         return res.status(500).json({ message: "Internal server error" });
-     }
- }
+ export async function deletePackage(req, res) {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ message: "Invalid package id" });
+    }
+
+    const deleted = await ServicePackage.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).json({ message: "Service package not found" });
+    }
+
+    return res.status(200).json({ message: "Service package deleted successfully" });
+  } catch (error) {
+    console.error("Error in deletePackage controller", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}

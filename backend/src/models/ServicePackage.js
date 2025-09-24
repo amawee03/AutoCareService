@@ -29,6 +29,10 @@ const ServicePackageSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
+  includedServices: {
+    type: [String],
+    default: []
+  },
   image: {
     type: String,
     default: ''

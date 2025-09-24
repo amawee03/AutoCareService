@@ -1,6 +1,5 @@
 import express from "express";
 import multer from "multer";
-import { upload } from "../server.js";
 
 import {
   addFinanceIncome,
@@ -24,12 +23,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Test route
+// ✅ Test route
 router.get("/test", (req, res) => {
   res.json({ message: "Finance Income route is working!" });
 });
 
-// ✅ Routes
+// ✅ Main routes
 router.post("/", upload.single("image"), addFinanceIncome);
 router.get("/", getAllFinanceIncomes);
 router.get("/:id", getFinanceIncomeById);
