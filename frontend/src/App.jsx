@@ -13,10 +13,7 @@ import AppointmentSuccess from './components/AppointmentSuccess';
 import AppointmentFailure from './components/AppointmentFailure';
 import ServiceForm from './components/services/ServiceForm';
 import ContactUsPage from './pages/ContactUsPage';
-import AdminNewService from './pages/Admin/AdminNewService';
-import AdminManageServices from './pages/Admin/AdminManageServices';
-import AdminAddServiceForm from './pages/Admin/AdminAddServiceForm';
-import AdminViewPackages from './pages/Admin/AdminViewPackage';
+
 
 export default function App() {
   return (
@@ -42,8 +39,7 @@ export default function App() {
         <Route path="/appointment/payment" element={<PaymentPage />} />
         <Route path="/appointment/success" element={<AppointmentSuccess />} />
         <Route path="/appointment/failure" element={<AppointmentFailure />} />
-    <Route path = "/admin/form" element = {<AdminAddServiceForm/>}/>
-       
+
       </Routes>
     </div>
   );
